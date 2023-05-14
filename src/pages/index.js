@@ -3,8 +3,6 @@ import {Inter} from 'next/font/google'
 import {useEffect, useRef, useState} from "react";
 import styles from '@/styles/Home.module.css'
 
-const inter = Inter({subsets: ['latin']})
-
 export default function Home() {
     const timer = useRef();
     const [started, setStarted] = useState(false)
@@ -82,7 +80,7 @@ export default function Home() {
 
     return (
         <>
-            <main className={`${styles.main} ${inter.className}`}>
+            <main className={`${styles.main}`}>
                 <button onClick={handleStart}>{started ? 'Stop' : 'Start'}</button>
                 <div className={styles.description}>
                     <p>
