@@ -24,6 +24,7 @@
     margin: 0;
     display: flex;
     padding: 1rem;
+    color: #198754;
     position: relative;
     justify-content: space-between;
     border-radius: var(--border-radius);
@@ -31,10 +32,8 @@
     border: 1px solid rgba(var(--callout-border-rgb), 0.3);
 }
 
-.infoLeft {
-}
-
-.infoRight {
+.error {
+    color: #ff3b30;
 }
 
 @media screen and (max-width: 768px) {

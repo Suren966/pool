@@ -1,6 +1,11 @@
 import axios from "axios";
 import styles from '@/styles/Home.module.css'
 import {useEffect, useRef, useState} from "react";
+import classNames from "classnames";
+
+const areqmineCount = 3;
+const alcotecmainCount = 30;
+const alcotecs19proCount = 82;
 
 export default function Home() {
     const timer = useRef();
@@ -19,7 +24,7 @@ export default function Home() {
             const data = response.data;
             const audio = new Audio('/massage.mp3');
             audio.loop = false;
-            if (data?.['worker_length_online'] < 3) {
+            if (data?.['worker_length_online'] < areqmineCount) {
                 audio.play()
             } else {
                 audio.pause();
@@ -36,7 +41,7 @@ export default function Home() {
         const data = response.data;
         const audio = new Audio('/massage.mp3');
         audio.loop = false;
-        if (data?.['worker_length_online'] < 30) {
+        if (data?.['worker_length_online'] < alcotecmainCount) {
             audio.play()
         } else {
             audio.pause();
@@ -50,7 +55,7 @@ export default function Home() {
         const data = response.data;
         const audio = new Audio('/massage.mp3');
         audio.loop = false;
-        if (data?.['worker_length_online'] < 82) {
+        if (data?.['worker_length_online'] < alcotecs19proCount) {
             audio.play()
         } else {
             audio.pause();
@@ -82,19 +87,22 @@ export default function Home() {
             <main className={styles.main}>
                 <button onClick={handleStart} className={styles.button}>{started ? 'Stop' : 'Start'}</button>
                 <div className={styles.list}>
-                    <div className={styles.card}>
+                    <div
+                        className={classNames([styles.card, {[styles.error]: areqmine?.['worker_length_online'] < areqmineCount}])}>
                         <div className={styles.infoLeft}>
                             areqmine{' '}={' '}
                             <code className={styles.code}>{areqmine?.['worker_length_online']}</code>
                         </div>
                     </div>
-                    <div className={styles.card}>
+                    <div
+                        className={classNames([styles.card, {[styles.error]: alcotecmain?.['worker_length_online'] < alcotecmainCount}])}>
                         <div className={styles.infoLeft}>
                             alcotecmain{' '}={' '}
                             <code className={styles.code}>{alcotecmain?.['worker_length_online']}</code>
                         </div>
                     </div>
-                    <div className={styles.card}>
+                    <div
+                        className={classNames([styles.card, {[styles.error]: alcotecs19pro?.['worker_length_online'] < alcotecs19proCount}])}>
                         <div className={styles.infoLeft}>
                             alcotecs19pro{' '}={' '}
                             <code className={styles.code}>{alcotecs19pro?.['worker_length_online']}</code>
