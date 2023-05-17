@@ -1,7 +1,6 @@
 import axios from "axios";
-import {Inter} from 'next/font/google'
-import {useEffect, useRef, useState} from "react";
 import styles from '@/styles/Home.module.css'
+import {useEffect, useRef, useState} from "react";
 
 export default function Home() {
     const timer = useRef();
@@ -73,28 +72,34 @@ export default function Home() {
             timer.current = setInterval(() => {
                 fetchData();
             }, 5000)
-        }else{
+        } else {
             clearInterval(timer.current)
         }
     }, [started])
 
     return (
         <>
-            <main className={`${styles.main}`}>
-                <button onClick={handleStart}>{started ? 'Stop' : 'Start'}</button>
-                <div className={styles.description}>
-                    <p>
-                        areqmine{' '}={' '}
-                        <code className={styles.code}>{areqmine?.['worker_length_online']}</code>
-                    </p>
-                    <p>
-                        alcotecmain{' '}={' '}
-                        <code className={styles.code}>{alcotecmain?.['worker_length_online']}</code>
-                    </p>
-                    <p>
-                        alcotecs19pro{' '}={' '}
-                        <code className={styles.code}>{alcotecs19pro?.['worker_length_online']}</code>
-                    </p>
+            <main className={styles.main}>
+                <button onClick={handleStart} className={styles.button}>{started ? 'Stop' : 'Start'}</button>
+                <div className={styles.list}>
+                    <div className={styles.card}>
+                        <div className={styles.infoLeft}>
+                            areqmine{' '}={' '}
+                            <code className={styles.code}>{areqmine?.['worker_length_online']}</code>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.infoLeft}>
+                            alcotecmain{' '}={' '}
+                            <code className={styles.code}>{alcotecmain?.['worker_length_online']}</code>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.infoLeft}>
+                            alcotecs19pro{' '}={' '}
+                            <code className={styles.code}>{alcotecs19pro?.['worker_length_online']}</code>
+                        </div>
+                    </div>
                 </div>
             </main>
         </>
