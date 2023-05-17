@@ -17,6 +17,7 @@ export default function Home() {
         alcotecs19pro: false
     })
     const [error, setError] = useState(null)
+    const [seconds, setSeconds] = useState(5)
     const [areqmine, setAreqmine] = useState(null)
     const [alcotecmain, setAlcotecmain] = useState(null)
     const [alcotecs19pro, setAlcotecs19pro] = useState(null)
@@ -133,8 +134,12 @@ export default function Home() {
             clearInterval(timer.current)
             timer.current = setInterval(() => {
                 fetchData();
-            }, 5000)
+            }, seconds * 1000)
         } else {
+            clearInterval(timer.current)
+        }
+
+        return () => {
             clearInterval(timer.current)
         }
     }, [started])
@@ -148,7 +153,10 @@ export default function Home() {
                     </div>
                 }
 
-                <button onClick={handleStart} className={styles.button}>{started ? 'Stop' : 'Start'}</button>
+                <div className={styles.actions}>
+                    <button onClick={handleStart} className={styles.button}>{started ? 'Stop' : 'Start'}</button>
+                    <input className={styles.input} type="number" disabled={started} value={seconds} onChange={e => setSeconds(+e.currentTarget.value)}/>
+                </div>
                 <div className={styles.list}>
                     <div
                         className={classNames([styles.card, {[styles.error]: areqmine?.['worker_length_online'] < areqmineCount}])}>
