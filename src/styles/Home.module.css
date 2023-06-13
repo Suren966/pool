@@ -39,7 +39,25 @@
     font-family: var(--font-mono);
 }
 
+.cardWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.cardWrapper input{
+    width: 10%;
+    height: 100%;
+    padding: 1rem;
+    font-size: 24px;
+    text-indent: 16px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+}
+
 .card {
+    width: 90%;
     margin: 0;
     display: flex;
     padding: 1rem;

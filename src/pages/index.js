@@ -4,11 +4,11 @@ import classNames from "classnames";
 import {useEffect, useRef, useState} from "react";
 import {ClipLoader} from "react-spinners";
 
-const areqmineCount = 3;
-const alcotecmainCount = 30;
-const alcotecs19proCount = 82;
-
 export default function Home() {
+    const [areqmineCount, setAreqmineCount] = useState(3)
+    const [alcotecmainCount, setAlcotecmainCount] = useState(30)
+    const [alcotecs19proCount, setAlcotecs19proCount] = useState(82)
+
     const timer = useRef();
     const [started, setStarted] = useState(false)
     const [loading, setLoading] = useState({
@@ -128,6 +128,17 @@ export default function Home() {
         getAlcotecs19pro().catch(null)
     }
 
+    const onInputHandlers = (e) => {
+        const {name, value} = e.target || {}
+        if (name === 'areqmineCount') {
+            setAreqmineCount(value)
+        } else if (name === 'alcotecmainCount') {
+            setAlcotecmainCount(value)
+        } else if (name === 'alcotecs19proCount') {
+            setAlcotecs19proCount(value)
+        }
+    }
+
     useEffect(() => {
         if (started) {
             fetchData();
@@ -155,38 +166,65 @@ export default function Home() {
 
                 <div className={styles.actions}>
                     <button onClick={handleStart} className={styles.button}>{started ? 'Stop' : 'Start'}</button>
-                    <input className={styles.input} type="number" disabled={started} value={seconds} onChange={e => setSeconds(+e.currentTarget.value)}/>
+                    <input className={styles.input} type="number" disabled={started} value={seconds}
+                           onChange={e => setSeconds(+e.currentTarget.value)}/>
                 </div>
                 <div className={styles.list}>
-                    <div
-                        className={classNames([styles.card, {[styles.error]: areqmine?.['worker_length_online'] < areqmineCount}])}>
-                        <div className={styles.info}>
-                            areqmine{' '}={' '}
-                            <code className={styles.code}>{areqmine?.['worker_length_online']}</code>
+                    <div className={styles.cardWrapper}>
+                        <div
+                            className={classNames([styles.card, {[styles.error]: areqmine?.['worker_length_online'] < areqmineCount}])}>
+                            <div className={styles.info}>
+                                areqmine{' '}={' '}
+                                <code className={styles.code}>{areqmine?.['worker_length_online']}</code>
+                            </div>
+                            <div className={styles.loader}>
+                                <ClipLoader color={'#2c78f6'} loading={loading.areqmine} size={24}/>
+                            </div>
                         </div>
-                        <div className={styles.loader}>
-                            <ClipLoader color={'#2c78f6'} loading={loading.areqmine} size={24}/>
-                        </div>
+                        <input
+                            disabled={started}
+                            type={'number'}
+                            name={'areqmineCount'}
+                            value={areqmineCount}
+                            onChange={onInputHandlers}/>
                     </div>
-                    <div
-                        className={classNames([styles.card, {[styles.error]: alcotecmain?.['worker_length_online'] < alcotecmainCount}])}>
-                        <div className={styles.info}>
-                            alcotecmain{' '}={' '}
-                            <code className={styles.code}>{alcotecmain?.['worker_length_online']}</code>
+                    <div className={styles.cardWrapper}>
+                        <div
+                            className={classNames([styles.card, {[styles.error]: alcotecmain?.['worker_length_online'] < alcotecmainCount}])}>
+                            <div className={styles.info}>
+                                alcotecmain{' '}={' '}
+                                <code className={styles.code}>{alcotecmain?.['worker_length_online']}</code>
+                            </div>
+                            <div className={styles.loader}>
+                                <ClipLoader color={'#2c78f6'} loading={loading.alcotecmain} size={24}/>
+                            </div>
                         </div>
-                        <div className={styles.loader}>
-                            <ClipLoader color={'#2c78f6'} loading={loading.alcotecmain} size={24}/>
-                        </div>
+                        <input
+                            disabled={started}
+                            value={alcotecmainCount}
+                            type={'number'}
+                            name={'alcotecmainCount'}
+                            onChange={onInputHandlers}
+                        />
                     </div>
-                    <div
-                        className={classNames([styles.card, {[styles.error]: alcotecs19pro?.['worker_length_online'] < alcotecs19proCount}])}>
-                        <div className={styles.info}>
-                            alcotecs19pro{' '}={' '}
-                            <code className={styles.code}>{alcotecs19pro?.['worker_length_online']}</code>
+                    <div className={styles.cardWrapper}>
+                        <div
+                            className={classNames([styles.card, {[styles.error]: alcotecs19pro?.['worker_length_online'] < alcotecs19proCount}])}>
+                            <div className={styles.info}>
+                                alcotecs19pro{' '}={' '}
+                                <code className={styles.code}>{alcotecs19pro?.['worker_length_online']}</code>
+                            </div>
+                            <div className={styles.loader}>
+                                <ClipLoader color={'#2c78f6'} loading={loading.alcotecs19pro} size={24}/>
+                            </div>
                         </div>
-                        <div className={styles.loader}>
-                            <ClipLoader color={'#2c78f6'} loading={loading.alcotecs19pro} size={24}/>
-                        </div>
+                        <input
+                            disabled={started}
+                            type={'number'}
+                            value={alcotecs19proCount}
+                            name={'alcotecs19proCount'}
+                            onChange={onInputHandlers}
+                        />
                     </div>
                 </div>
             </main>
